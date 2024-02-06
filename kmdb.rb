@@ -121,6 +121,7 @@ the_dark_knight_rises.save
 
 # Insert Actor Data
 
+
 christian_bale = Actor.new
 christian_bale["name"] = "Christian Bale"
 christian_bale.save
