@@ -277,12 +277,8 @@ puts ""
 # Create a hash of all studios with their id as the key for quick lookup
 studios = Studio.all.index_by(&:id)
 
-# Print a header for the movies output
-puts "Movies"
-puts "======"
-
 # Loop through the movies and display their details
-movies.each do |movie|
+for movie in movies
   # Use the studio_id to find the studio name from the hash
   studio_name = studios[movie.studio_id]&.name || "No Studio"
 
@@ -301,13 +297,14 @@ puts ""
 # Create a hash of all actors for quick lookup
 actors = Actor.all.index_by(&:id)
 
-# Query the cast data and loop through the results
-puts "Top Cast"
-puts "========"
-
-Movie.all.each do |movie|
+# Loop through the movies using a 'for' loop
+for movie in Movie.all
   puts "\n#{movie.title}"
-  Role.where(movie_id: movie.id).each do |role|
+  
+  # Loop through the roles of each movie using a 'for' loop
+  for role in Role.where(movie_id: movie.id)
+    # Retrieve the actor name using the actor_id from the role
+    # If the actor is not found in the hash, default to "Unknown Actor"
     actor_name = actors[role.actor_id]&.name || "Unknown Actor"
     puts "  #{actor_name} as #{role.character_name}"
   end
