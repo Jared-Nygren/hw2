@@ -281,7 +281,7 @@ studios = Studio.all.index_by(&:id)
 # Loop through the movies and display their details
 for movie in movies
   # Use the studio_id to find the studio name from the hash
-  studio_name = studios[movie.studio_id]&.name || "No Studio"
+  studio_name = studios[movie.studio_id].name
 
   puts "#{movie.title} - #{movie.year} - #{movie.rating} - #{studio_name}"
 end
@@ -300,13 +300,12 @@ actors = Actor.all.index_by(&:id)
 
 # Loop through the movies using a 'for' loop
 for movie in Movie.all
-  puts "\n#{movie.title}"
+  puts "\n#{movie.title}"  # added \n for better spacing 
   
   # Loop through the roles of each movie using a 'for' loop
   for role in Role.where(movie_id: movie.id)
     # Retrieve the actor name using the actor_id from the role
-    # If the actor is not found in the hash, default to "Unknown Actor"
-    actor_name = actors[role.actor_id]&.name || "Unknown Actor"
+    actor_name = actors[role.actor_id].name  #actor_name = actors[role.actor_id]&.name || "Unknown Actor" (code to use if actor may be missing from dataset)
     puts "  #{actor_name} as #{role.character_name}"
   end
 end
